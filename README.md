@@ -1,4 +1,4 @@
-# DataCo Smart Supply Chain — Machine Learning & Neural Networks
+# DataCo Smart Supply Chain
 
 Group repository for predictive modeling on the DataCo Smart Supply Chain dataset (V5, 180,519 rows).
 
