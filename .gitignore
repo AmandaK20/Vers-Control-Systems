@@ -1,0 +1,15 @@
+# Ignore raw datasets
+data/*.csv
+*.csv
+
+# Keep result summary CSVs tracked in Git
+!results/*.csv
+
+# Python / IDE / Virtual Environment
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+.vscode/
+.DS_Store

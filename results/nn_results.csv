@@ -1,0 +1,5 @@
+model,task,task_type,split_seed,accuracy,precision,recall,f1_score,roc_auc,mae,rmse,r2
+Neural Network (MLP),fraud,classification,42,0.9126,0.1088,0.4015,0.1712,0.8931,,,
+Neural Network (MLP),late_delivery,classification,42,0.72,0.8572,0.5871,0.6969,0.778,,,
+Neural Network (MLP),sales,regression,42,,,,,,41.2806,67.4028,0.738
+Neural Network (MLP),benefit_per_order,regression,42,,,,,,54.2671,100.3527,0.0203
