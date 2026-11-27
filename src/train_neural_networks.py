@@ -6,7 +6,7 @@ import torch.nn as nn
 from torch.utils.data import TensorDataset, DataLoader
 from sklearn.metrics import (
     accuracy_score, precision_score, recall_score, f1_score, roc_auc_score,
-    mean_absolute_error, root_mean_squared_error, r2_score
+    mean_absolute_error, mean_squared_error, r2_score
 )
 from preprocessing import load_and_prepare_base, get_task_splits, SEED
 
@@ -82,19 +82,14 @@ def train_and_evaluate(df: pd.DataFrame, task: str, task_type: str, epochs: int 
             'recall': round(recall_score(y_test, preds, zero_division=0), 4),
             'f1_score': round(f1_score(y_test, preds, zero_division=0), 4),
             'roc_auc': round(roc_auc_score(y_test, probs), 4),
-            'mae': np.nan,
-            'rmse': np.nan,
-            'r2': np.nan
+            'mae': np.nan, 'rmse': np.nan, 'r2': np.nan
         })
     else:
         result.update({
-            'accuracy': np.nan,
-            'precision': np.nan,
-            'recall': np.nan,
-            'f1_score': np.nan,
-            'roc_auc': np.nan,
+            'accuracy': np.nan, 'precision': np.nan, 'recall': np.nan,
+            'f1_score': np.nan, 'roc_auc': np.nan,
             'mae': round(mean_absolute_error(y_test, raw_out), 4),
-            'rmse': round(root_mean_squared_error(y_test, raw_out), 4),
+            'rmse': round(np.sqrt(mean_squared_error(y_test, raw_out)), 4),
             'r2': round(r2_score(y_test, raw_out), 4)
         })
 
@@ -110,12 +105,11 @@ def main():
         ('fraud', 'classification'),
         ('late_delivery', 'classification'),
         ('sales', 'regression'),
-        ('benefit_per_order', 'regression')
+        ('product_quantity', 'regression')
     ]
 
-    results = [train_and_evaluate(df, task, t_type) for task, t_type in tasks]
-    results_df = pd.DataFrame(results)
-    results_df.to_csv('results/nn_results.csv', index=False)
+    results = [train_and_evaluate(df, task, task_type) for task, task_type in tasks]
+    pd.DataFrame(results).to_csv('results/nn_results.csv', index=False)
     print("\nSaved all NN results to results/nn_results.csv")
 
 
